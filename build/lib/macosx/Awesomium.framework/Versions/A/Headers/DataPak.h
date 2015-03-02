@@ -1,5 +1,5 @@
 ///
-/// @file DataSource.h
+/// @file DataPak.h
 ///
 /// @brief The header for DataPak utilities.
 ///
@@ -9,8 +9,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_DATA_PAK_H_
 #define AWESOMIUM_DATA_PAK_H_
@@ -70,6 +70,7 @@ class OSM_EXPORT DataPakSource : public DataSource {
   /// This method is inherited from DataSource.
   ///
   virtual void OnRequest(int request_id,
+                         const ResourceRequest& request,
                          const WebString& path);
 
  protected:

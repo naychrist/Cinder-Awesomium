@@ -1,7 +1,8 @@
 ///
 /// @file WebCore.h
 ///
-/// @brief The main header for the Awesomium C++ API.
+/// @brief The main header for the Awesomium C++ API. This header includes most
+///        of the common API functions you will need.
 ///
 /// @author
 ///
@@ -9,8 +10,8 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2012 Khrona. All rights reserved. Awesomium is a
-/// trademark of Khrona.
+/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_CORE_H_
 #define AWESOMIUM_WEB_CORE_H_
@@ -25,6 +26,17 @@
 #include <Awesomium/ResourceInterceptor.h>
 
 namespace Awesomium {
+
+///
+/// The severity level for a log message. See WebCore::Log
+///
+enum LogSeverity {
+  kLogSeverity_Info = 0,    ///< Info message
+  kLogSeverity_Warning,     ///< Warning message
+  kLogSeverity_Error,       ///< Error message
+  kLogSeverity_ErrorReport, ///< Error report message
+  kLogSeverity_Fatal        ///< Fatal error message, terminates application
+};
 
 ///
 /// @brief  The core of Awesomium. You should initialize it before doing
@@ -133,6 +145,15 @@ class OSM_EXPORT WebCore {
   /// any queued WebViewListener events.
   ///
   virtual void Update() = 0;
+
+  ///
+  /// Log a message to the log (print to the console and log file).
+  ///
+  virtual void Log(const WebString& message,
+                   LogSeverity severity,
+                   const WebString& file,
+                   int line) = 0;
+
 
   ///
   /// Get the version for this build of Awesomium.
