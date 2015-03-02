@@ -9,7 +9,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_PREFERENCES_H_
@@ -33,6 +33,16 @@ struct OSM_EXPORT WebPreferences {
   /// Create a default set of Preferences.
   ///
   WebPreferences();
+
+  ///
+  /// The max amount of storage (in bytes) to use for caching HTTP responses.
+  /// Specify 0 to let Awesomium determine a good value based on a percentage
+  /// of system resources. (In-memory cache will use a percentage of RAM,
+  /// on-disk cache will use a percentage of free disk space).
+  ///
+  /// (Default: 0, automatically set based on available system resources) 
+  ///
+  int max_http_cache_storage;
 
   ///
   /// Whether or not JavaScript should be enabled. (Default: true)
@@ -103,7 +113,22 @@ struct OSM_EXPORT WebPreferences {
   /// User-defined CSS to be applied to all web-pages. This is useful for
   /// overriding default styles. (Default: empty)
   ///
+  /// This is NOT a filepath, you should pass a raw CSS string.
+  ///
+  /// This value is concatenated with the global WebConfig::user_stylesheet.
+  ///
   WebString user_stylesheet;
+
+  ///
+  /// User-defined JavaScript to run at the beginning of every page load. This
+  /// code is run immediately after global JavaScript objects are set up and
+  /// before the DOM or any inline scripts are loaded.
+  ///
+  /// This is NOT a filepath, you should pass a raw JavaScript string.
+  ///
+  /// This value is concatenated with the global WebConfig::user_script.
+  ///
+  WebString user_script;
 
   ///
   /// Proxy configuration string.

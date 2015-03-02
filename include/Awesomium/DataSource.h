@@ -9,7 +9,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_DATA_SOURCE_H_
@@ -18,6 +18,7 @@
 
 #include <Awesomium/Platform.h>
 #include <Awesomium/WebString.h>
+#include <Awesomium/ResourceInterceptor.h>
 
 namespace Awesomium {
 
@@ -40,15 +41,18 @@ class OSM_EXPORT DataSource {
   ///
   /// @param request_id  The unique ID for the request.
   ///
+  /// @param request     The details of the URL request.
+  ///
   /// @param path        The path for the request. If your DataSource was
   ///                    registered with an asset_host of **MyHost**, path will
-  ///                    be contain whatever follows `asset://MyHost/`.
+  ///                    contain whatever follows `asset://MyHost/`.
   ///
   /// @note  This event is always called on the main thread. To avoid potential
   ///        deadlocks, you should not make any calls to WebView, WebCore, or
   ///        JSObject within this callback.
   ///
   virtual void OnRequest(int request_id,
+                         const ResourceRequest& request,
                          const WebString& path) = 0;
 
   ///
@@ -70,7 +74,7 @@ class OSM_EXPORT DataSource {
   ///
   void SendResponse(int request_id,
                     unsigned int buffer_size,
-                    unsigned char* buffer,
+                    const unsigned char* buffer,
                     const WebString& mime_type);
 
  protected:

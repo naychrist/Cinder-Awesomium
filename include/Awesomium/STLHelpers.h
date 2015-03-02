@@ -11,7 +11,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_STL_HELPERS_H_
@@ -25,7 +25,9 @@
 
 namespace Awesomium {
 
-// Convert WebString to a std::string
+///
+/// Helper function to convert WebString to a std::string.
+///
 inline std::string ToString(const WebString& str) {
   std::string result;
 
@@ -43,18 +45,24 @@ inline std::string ToString(const WebString& str) {
   return result;
 }
 
-// Convert std::string to a WebString
+///
+/// Helper function to convert std::string to a WebString.
+///
 inline WebString ToWebString(const std::string& str) {
   return WebString::CreateFromUTF8(str.data(), str.length());
 }
 
-// Stream operator to allow WebString output to an ostream
+///
+/// Stream operator to allow WebString output to an ostream
+///
 inline std::ostream& operator<<(std::ostream& out, const WebString& str) {
     out << ToString(str);
     return out;
 }
 
-// Stream operator to allow WebString to be input from an istream
+///
+/// Stream operator to allow WebString to be input from an istream
+///
 inline std::istream& operator>>(std::istream& in, WebString& out) {
     std::string x;
     in >> x;
@@ -62,7 +70,16 @@ inline std::istream& operator>>(std::istream& in, WebString& out) {
     return in;
 }
 
-// Web String Literal (for quick, inline string definitions)
+///
+/// Web String Literal (for quick, inline string definitions)
+///
+/// @note: Here's two examples:
+///
+///     WebString my_str(WSLit("literal string goes here"));
+///
+///     WebConfig config;
+///     config.user_script = WSLit("window.testVal = 123;");
+///
 inline WebString WSLit(const char* string_literal) {
   return WebString::CreateFromUTF8(string_literal, strlen(string_literal));
 }

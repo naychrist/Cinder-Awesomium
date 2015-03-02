@@ -10,7 +10,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_CORE_H_
@@ -26,6 +26,17 @@
 #include <Awesomium/ResourceInterceptor.h>
 
 namespace Awesomium {
+
+///
+/// The severity level for a log message. See WebCore::Log
+///
+enum LogSeverity {
+  kLogSeverity_Info = 0,    ///< Info message
+  kLogSeverity_Warning,     ///< Warning message
+  kLogSeverity_Error,       ///< Error message
+  kLogSeverity_ErrorReport, ///< Error report message
+  kLogSeverity_Fatal        ///< Fatal error message, terminates application
+};
 
 ///
 /// @brief  The core of Awesomium. You should initialize it before doing
@@ -136,9 +147,39 @@ class OSM_EXPORT WebCore {
   virtual void Update() = 0;
 
   ///
+  /// Log a message to the log (print to the console and log file).
+  ///
+  virtual void Log(const WebString& message,
+                   LogSeverity severity,
+                   const WebString& file,
+                   int line) = 0;
+
+  ///
   /// Get the version for this build of Awesomium.
   ///
   virtual const char* version_string() const = 0;
+
+  ///
+  /// Get the number of bytes actually used by our allocator (TCMalloc).
+  ///
+  /// @note: Only implemented on Windows.
+  ///
+  static unsigned int used_memory();
+
+  ///
+  /// Get the number of bytes cached by our allocator (TCMalloc).
+  ///
+  /// @note: Only implemented on Windows.
+  ///
+  static unsigned int allocated_memory();
+
+  ///
+  /// Force TCMalloc to release as much unused memory as possible. Reducing
+  /// the size of the memory pool may cause a small performance hit.
+  ///
+  /// @note: Only implemented on Windows.
+  ///
+  static void release_memory();
 
  protected:
   virtual ~WebCore() {}

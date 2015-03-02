@@ -9,7 +9,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_VIEW_LISTENER_H_
@@ -266,7 +266,7 @@ namespace WebViewListener {
 
 ///
 /// @brief  An interface that you can use to handle all View-related events
-///         for a certain WebView.
+///         for a certain WebView. All events are invoked asynchronously.
 ///
 /// @note  See WebView::set_view_listener
 ///
@@ -333,7 +333,7 @@ class OSM_EXPORT View {
 
 ///
 /// @brief  An interface that you can use to handle all page-loading
-///         events for a certain WebView.
+///         events for a certain WebView. All events are invoked asynchronously.
 ///
 /// @note: See WebView::SetLoadListener
 ///
@@ -373,7 +373,7 @@ class OSM_EXPORT Load {
 
 ///
 /// @brief  An interface that you can use to handle all process-related
-///         events for a certain WebView.
+///         events for a certain WebView. All events are invoked asynchronously.
 ///
 /// Each WebView has an associated "render" process, you can use these events
 /// to recover from crashes or hangs).
@@ -382,14 +382,17 @@ class OSM_EXPORT Load {
 ///
 class OSM_EXPORT Process {
  public:
-  /// This event occurs when the process hangs.
+  /// This even occurs when a new WebView render process is launched.
+  virtual void OnLaunch(Awesomium::WebView* caller) = 0;
+
+  /// This event occurs when the render process hangs.
   virtual void OnUnresponsive(Awesomium::WebView* caller) = 0;
 
-  /// This event occurs when the process becomes responsive after
+  /// This event occurs when the render process becomes responsive after
   /// a hang.
   virtual void OnResponsive(Awesomium::WebView* caller) = 0;
 
-  /// This event occurs when the process crashes.
+  /// This event occurs when the render process crashes.
   virtual void OnCrashed(Awesomium::WebView* caller,
                          Awesomium::TerminationStatus status) = 0;
  protected:
@@ -398,7 +401,7 @@ class OSM_EXPORT Process {
 
 ///
 /// @brief  An interface that you can use to handle all menu-related events
-///         for a certain WebView.
+///         for a certain WebView. All events are invoked asynchronously.
 ///
 /// @note  See WebView::set_menu_listener
 ///
@@ -430,7 +433,7 @@ class OSM_EXPORT Menu {
 
 ///
 /// @brief  An interface that you can use to handle all dialog-related events
-///         for a certain WebView.
+///         for a certain WebView. All events are invoked asynchronously.
 ///
 /// @see  WebView::set_dialog_listener
 ///
@@ -488,7 +491,7 @@ class OSM_EXPORT Dialog {
 
 ///
 /// @brief  An interface that you can use to handle all print-related events
-///         for a certain WebView.
+///         for a certain WebView. All events are invoked asynchronously.
 ///
 /// @see  WebView::set_print_listener
 ///
@@ -534,7 +537,7 @@ class OSM_EXPORT Print {
 
 ///
 /// @brief  An interface that you can use to handle all download-related events
-///         for a certain WebView.
+///         for a certain WebView. All events are invoked asynchronously.
 ///
 /// @see  WebView::set_download_listener
 ///
@@ -596,7 +599,7 @@ class OSM_EXPORT Download {
 
 ///
 /// @brief  An interface that you can use to handle all IME-related events
-///         for a certain WebView.
+///         for a certain WebView. All events are invoked asynchronously.
 ///
 /// @see  WebView::set_input_method_editor_listener
 ///

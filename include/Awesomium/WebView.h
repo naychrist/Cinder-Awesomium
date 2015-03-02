@@ -9,7 +9,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_VIEW_H_
@@ -94,6 +94,12 @@ class OSM_EXPORT WebView {
   /// May return 0 if the WebView has crashed or there is no process active.
   ///
   virtual int routing_id() = 0;
+
+  ///
+  /// Increment and return the next routing ID, can be used to predict the
+  /// routing ID of the next child WebView in the same process.
+  ///
+  virtual int next_routing_id() = 0;
 
   ///
   /// Get the handle for the corresponding child-process hosting this
@@ -751,6 +757,13 @@ class OSM_EXPORT WebView {
   /// @see  WebViewListener::Dialog::OnShowPageInfoDialog
   ///
   virtual void RequestPageInfo() = 0;
+
+  ///
+  /// Forces V8 to release as much memory as possible (collects garbage, dumps
+  /// cached structures, etc) and also clears WebKit cache. This helps to
+  /// reduce memory accumulated within the process associated with this view.
+  ///
+  virtual void ReduceMemoryUsage() = 0;
 
  protected:
     virtual ~WebView() {}

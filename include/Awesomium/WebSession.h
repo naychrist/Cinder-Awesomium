@@ -9,7 +9,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_WEB_SESSION_H_
@@ -69,6 +69,7 @@ class OSM_EXPORT WebSession {
   ///
   /// @param  asset_host  The asset hostname that this DataSource will be used
   ///                     for, (eg, asset://asset_host_goes_here/foobar.html).
+  ///                     Specify "catch-all" to catch any unmatched requests.
   ///
   /// @param  source      The DataSource that will handle requests. You retain
   ///                     ownership of the DataSource. This instance should
@@ -99,6 +100,11 @@ class OSM_EXPORT WebSession {
   /// Clears all cookies asynchronously.
   ///
   virtual void ClearCookies() = 0;
+
+  ///
+  /// Clears the cache asynchronously.
+  ///
+  virtual void ClearCache() = 0;
 
   ///
   /// Gets the saved zoom amount for a certain URL host (in percent).

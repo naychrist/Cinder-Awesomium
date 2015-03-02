@@ -9,7 +9,7 @@
 ///
 /// Website: <http://www.awesomium.com>
 ///
-/// Copyright (C) 2013 Awesomium Technologies LLC. All rights reserved.
+/// Copyright (C) 2014 Awesomium Technologies LLC. All rights reserved.
 /// Awesomium is a trademark of Awesomium Technologies LLC.
 ///
 #ifndef AWESOMIUM_PLATFORM_H_
@@ -45,6 +45,9 @@ typedef long long int64;
 #endif
 
 typedef unsigned short wchar16;
+
+/// The current version of Awesomium. This will be included in the user-agent.
+#define OSM_VERSION "1.7.5.0"
 
 /// The namespace for the Awesomium API.
 namespace Awesomium {
